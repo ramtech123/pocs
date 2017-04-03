@@ -10,4 +10,15 @@ public enum LogLevel {
     INFO,
     DEBUG;
 
+    public static LogLevel find(String text) {
+        if(isEmpty(text)) {
+            throw new IllegalArgumentException("Null or blank data not allowed");
+        }
+        return LogLevel.valueOf(text.toUpperCase());
+    }
+
+    private static boolean isEmpty (String text) {
+        return text == null || text.trim().isEmpty();
+    }
+
 }
