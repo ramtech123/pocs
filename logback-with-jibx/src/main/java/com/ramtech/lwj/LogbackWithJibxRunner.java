@@ -14,6 +14,12 @@ import java.io.FileNotFoundException;
  */
 public class LogbackWithJibxRunner {
 
+    /**
+     * Run with 'config/test-sample.xml' as program argument.
+     * @param args
+     * @throws JiBXException
+     * @throws FileNotFoundException
+     */
     public static void main(String[] args) throws JiBXException, FileNotFoundException {
         IBindingFactory bfact = BindingDirectory.getFactory(Configuration.class);
         IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
