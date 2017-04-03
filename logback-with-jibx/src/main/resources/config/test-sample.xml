@@ -36,13 +36,12 @@
         </triggeringPolicy>-->
     </appender>
 
-    <logger name="com.ramtech.lwj.helper" level="debug" resetLevelAfter="2" additivity="false">
+    <logger name="com.ramtech.lwj.helper" level="debug" resetLevel="info" resetTime="2" additivity="false">
         <appender-ref ref="VERIFY_LOG"/>
     </logger>
 
     <logger name="com.ramtech.lwj" level="debug" additivity="false">
         <appender-ref ref="APP_LOG"/>
-        <!--<reset-level after="2"/>-->
     </logger>
 
     <root level="error">

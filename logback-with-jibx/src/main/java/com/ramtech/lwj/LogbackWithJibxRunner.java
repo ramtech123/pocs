@@ -1,10 +1,7 @@
 package com.ramtech.lwj;
 
 import com.ramtech.lwj.pojo.Configuration;
-import org.jibx.runtime.BindingDirectory;
-import org.jibx.runtime.IBindingFactory;
-import org.jibx.runtime.IUnmarshallingContext;
-import org.jibx.runtime.JiBXException;
+import org.jibx.runtime.*;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -27,5 +24,8 @@ public class LogbackWithJibxRunner {
         FileInputStream in = new FileInputStream(xmlFilePath);
         Configuration configuration = (Configuration)uctx.unmarshalDocument(in, null);
         System.out.println(configuration);
+        IMarshallingContext mctx = bfact.createMarshallingContext();
+        mctx.setIndent(4);
+        mctx.marshalDocument(configuration, null, null, System.out);
     }
 }

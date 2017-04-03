@@ -20,6 +20,9 @@
     <mapping name="logger" class="com.ramtech.lwj.pojo.LoggerConfig">
         <value name="name" style="attribute" set-method="setName" get-method="getName"/>
         <value name="level" style="attribute" get-method="getLevel" set-method="setLevel" deserializer="com.ramtech.lwj.pojo.LogLevel.find"/>
+        <value name="resetLevel" style="attribute" get-method="getResetLevel" set-method="setResetLevel" deserializer="com.ramtech.lwj.pojo.LogLevel.find" usage="optional"/>
+        <value name="resetTime" style="attribute" get-method="getResetTime" set-method="setResetTime" usage="optional"/>
+        <value name="timerStartTime" style="attribute" get-method="getTimerStartTime" set-method="setTimerStartTime" usage="optional"/>
         <structure get-method="getAppenderRef" set-method="setAppenderRef" map-as="com.ramtech.lwj.pojo.AppenderRef"/>
     </mapping>
 

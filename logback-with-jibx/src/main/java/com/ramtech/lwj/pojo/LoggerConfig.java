@@ -9,6 +9,12 @@ public class LoggerConfig {
 
     private LogLevel level;
 
+    private Integer resetTime;
+
+    private LogLevel resetLevel;
+
+    private Long timerStartTime;
+
     private boolean additivity;
 
     private AppenderRef appenderRef;
@@ -45,6 +51,18 @@ public class LoggerConfig {
     public void setAppenderRef(AppenderRef appenderRef) {
         this.appenderRef = appenderRef;
     }
+
+    public Integer getResetTime() { return resetTime; }
+
+    public void setResetTime(Integer resetTime) { this.resetTime = resetTime; }
+
+    public LogLevel getResetLevel() { return resetLevel; }
+
+    public void setResetLevel(LogLevel resetLevel) { this.resetLevel = resetLevel; }
+
+    public Long getTimerStartTime() { return timerStartTime; }
+
+    public void setTimerStartTime(Long timerStartTime) { this.timerStartTime = timerStartTime; }
 
     @Override
     public boolean equals(Object o) {
