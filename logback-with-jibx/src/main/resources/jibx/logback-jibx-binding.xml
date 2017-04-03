@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<binding>
+    <mapping name="configuration" class="com.ramtech.lwj.pojo.Configuration">
+        <value name="scan" style="attribute" get-method="isScan" set-method="setScan"/>
+        <value name="scanPeriod" style="attribute" get-method="getScanPeriod" set-method="setScanPeriod"/>
+        <collection field="appenders" factory="com.ramtech.lwj.pojo.Configuration.appenderListFactory">
+            <structure ordered="false" map-as="com.ramtech.lwj.pojo.Appender"/>
+        </collection>
+        <collection field="loggerConfigs" factory="com.ramtech.lwj.pojo.Configuration.loggerListFactory">
+            <structure ordered="false" map-as="com.ramtech.lwj.pojo.LoggerConfig"/>
+        </collection>
+        <structure  get-method="getRootLogger" set-method="setRootLogger" map-as="com.ramtech.lwj.pojo.RootLogger"/>
+    </mapping>
+
+    <mapping name="appender" class="com.ramtech.lwj.pojo.Appender">
+        <value name="name" style="attribute" get-method="getName" set-method="setName"/>
+        <value name="class" style="attribute" get-method="getAppenderClass" set-method="setAppenderClass"/>
+    </mapping>
+
+    <mapping name="logger" class="com.ramtech.lwj.pojo.LoggerConfig">
+        <value name="name" style="attribute" set-method="setName" get-method="getName"/>
+        <value name="level" style="attribute" get-method="getLevel" set-method="setLevel" deserializer="com.ramtech.lwj.serializer.LogLevelDeserializer.deserializeLevel"/>
+        <structure get-method="getAppenderRef" set-method="setAppenderRef" map-as="com.ramtech.lwj.pojo.AppenderRef"/>
+    </mapping>
+
+    <mapping name="root" class="com.ramtech.lwj.pojo.RootLogger">
+        <value name="level" style="attribute" get-method="getLevel" set-method="setLevel" deserializer="com.ramtech.lwj.serializer.LogLevelDeserializer.deserializeLevel"/>
+        <structure  get-method="getAppenderRef" set-method="setAppenderRef"  map-as="com.ramtech.lwj.pojo.AppenderRef"/>
+    </mapping>
+
+    <mapping name="appender-ref" class="com.ramtech.lwj.pojo.AppenderRef">
+        <value name="ref" style="attribute" get-method="getRef" set-method="setRef"/>
+    </mapping>
+</binding>

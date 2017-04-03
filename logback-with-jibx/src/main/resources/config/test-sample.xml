@@ -1,0 +1,53 @@
+<configuration scan="true" scanPeriod="30 seconds">
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <!--<encoder>
+            <pattern>%d %p \(%t\) [%c{5}] - %m%n</pattern>
+        </encoder>-->
+    </appender>
+
+    <appender name="APP_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--<append>true</append>
+        <File>/temp/custom-logs/custom-log-app.log</File>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %p \(%t\) [%c{5}] - %m%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <maxIndex>50</maxIndex>
+            <FileNamePattern>/temp/custom-logs/custom-log-app.log.%i</FileNamePattern>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>25MB</MaxFileSize>
+        </triggeringPolicy>-->
+    </appender>
+
+    <appender name="VERIFY_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--<append>true</append>
+        <File>/temp/custom-logs/custom-log-verify.log</File>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %p \(%t\) [%c{5}] - %m%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <maxIndex>50</maxIndex>
+            <FileNamePattern>/temp/custom-logs/custom-log-verify.log.%i</FileNamePattern>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>25MB</MaxFileSize>
+        </triggeringPolicy>-->
+    </appender>
+
+    <logger name="com.ramtech.lwj.helper" level="debug" resetLevelAfter="2" additivity="false">
+        <appender-ref ref="VERIFY_LOG"/>
+    </logger>
+
+    <logger name="com.ramtech.lwj" level="debug" additivity="false">
+        <appender-ref ref="APP_LOG"/>
+        <!--<reset-level after="2"/>-->
+    </logger>
+
+    <root level="error">
+        <appender-ref ref="APP_LOG"/>
+    </root>
+
+</configuration>
+
