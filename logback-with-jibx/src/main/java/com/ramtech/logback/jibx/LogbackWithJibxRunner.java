@@ -1,6 +1,6 @@
-package com.ramtech.lwj;
+package com.ramtech.logback.jibx;
 
-import com.ramtech.lwj.pojo.Configuration;
+import com.ramtech.logback.jibx.pojo.Configuration;
 import org.jibx.runtime.*;
 
 import java.io.FileInputStream;

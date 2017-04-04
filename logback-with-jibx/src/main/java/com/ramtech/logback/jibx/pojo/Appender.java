@@ -1,4 +1,4 @@
-package com.ramtech.lwj.pojo;
+package com.ramtech.logback.jibx.pojo;
 
 /**
  * Created by rmogasale on 4/3/2017.

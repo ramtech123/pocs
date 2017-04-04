@@ -1,4 +1,4 @@
-package com.ramtech.lwj.pojo;
+package com.ramtech.logback.jibx.pojo;
 
 import java.util.ArrayList;
 import java.util.List;

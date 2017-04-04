@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <binding>
-    <mapping name="configuration" class="com.ramtech.lwj.pojo.Configuration">
+    <mapping name="configuration" class="com.ramtech.logback.jibx.pojo.Configuration">
         <value name="scan" style="attribute" get-method="isScan" set-method="setScan"/>
         <value name="scanPeriod" style="attribute" get-method="getScanPeriod" set-method="setScanPeriod"/>
-        <collection field="appenders" factory="com.ramtech.lwj.pojo.Configuration.appenderListFactory">
-            <structure ordered="false" map-as="com.ramtech.lwj.pojo.Appender"/>
+        <collection field="appenders" factory="com.ramtech.logback.jibx.pojo.Configuration.appenderListFactory">
+            <structure ordered="false" map-as="com.ramtech.logback.jibx.pojo.Appender"/>
         </collection>
-        <collection field="loggerConfigs" factory="com.ramtech.lwj.pojo.Configuration.loggerListFactory">
-            <structure ordered="false" map-as="com.ramtech.lwj.pojo.LoggerConfig"/>
+        <collection field="loggerConfigs" factory="com.ramtech.logback.jibx.pojo.Configuration.loggerListFactory">
+            <structure ordered="false" map-as="com.ramtech.logback.jibx.pojo.LoggerConfig"/>
         </collection>
-        <structure  get-method="getRootLogger" set-method="setRootLogger" map-as="com.ramtech.lwj.pojo.RootLogger"/>
+        <structure  get-method="getRootLogger" set-method="setRootLogger" map-as="com.ramtech.logback.jibx.pojo.RootLogger"/>
     </mapping>
 
-    <mapping name="appender" class="com.ramtech.lwj.pojo.Appender">
+    <mapping name="appender" class="com.ramtech.logback.jibx.pojo.Appender">
         <value name="name" style="attribute" get-method="getName" set-method="setName"/>
         <value name="class" style="attribute" get-method="getAppenderClass" set-method="setAppenderClass"/>
     </mapping>
 
-    <mapping name="logger" class="com.ramtech.lwj.pojo.LoggerConfig">
+    <mapping name="logger" class="com.ramtech.logback.jibx.pojo.LoggerConfig">
         <value name="name" style="attribute" set-method="setName" get-method="getName"/>
-        <value name="level" style="attribute" get-method="getLevel" set-method="setLevel" deserializer="com.ramtech.lwj.pojo.LogLevel.find"/>
-        <value name="resetLevel" style="attribute" get-method="getResetLevel" set-method="setResetLevel" deserializer="com.ramtech.lwj.pojo.LogLevel.find" usage="optional"/>
+        <value name="level" style="attribute" get-method="getLevel" set-method="setLevel" deserializer="com.ramtech.logback.jibx.pojo.LogLevel.find"/>
+        <value name="resetLevel" style="attribute" get-method="getResetLevel" set-method="setResetLevel" deserializer="com.ramtech.logback.jibx.pojo.LogLevel.find" usage="optional"/>
         <value name="resetTime" style="attribute" get-method="getResetTime" set-method="setResetTime" usage="optional"/>
         <value name="timerStartTime" style="attribute" get-method="getTimerStartTime" set-method="setTimerStartTime" usage="optional"/>
-        <structure get-method="getAppenderRef" set-method="setAppenderRef" map-as="com.ramtech.lwj.pojo.AppenderRef"/>
+        <structure get-method="getAppenderRef" set-method="setAppenderRef" map-as="com.ramtech.logback.jibx.pojo.AppenderRef"/>
     </mapping>
 
-    <mapping name="root" class="com.ramtech.lwj.pojo.RootLogger">
-        <value name="level" style="attribute" get-method="getLevel" set-method="setLevel" deserializer="com.ramtech.lwj.pojo.LogLevel.find"/>
-        <structure  get-method="getAppenderRef" set-method="setAppenderRef"  map-as="com.ramtech.lwj.pojo.AppenderRef"/>
+    <mapping name="root" class="com.ramtech.logback.jibx.pojo.RootLogger">
+        <value name="level" style="attribute" get-method="getLevel" set-method="setLevel" deserializer="com.ramtech.logback.jibx.pojo.LogLevel.find"/>
+        <structure  get-method="getAppenderRef" set-method="setAppenderRef"  map-as="com.ramtech.logback.jibx.pojo.AppenderRef"/>
     </mapping>
 
-    <mapping name="appender-ref" class="com.ramtech.lwj.pojo.AppenderRef">
+    <mapping name="appender-ref" class="com.ramtech.logback.jibx.pojo.AppenderRef">
         <value name="ref" style="attribute" get-method="getRef" set-method="setRef"/>
     </mapping>
 </binding>
