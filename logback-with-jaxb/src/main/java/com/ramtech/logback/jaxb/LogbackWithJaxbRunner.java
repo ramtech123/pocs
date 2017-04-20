@@ -1,12 +1,12 @@
 package com.ramtech.logback.jaxb;
 
 import com.ramtech.logback.jaxb.pojo.Configuration;
+import com.ramtech.logback.jaxb.pojo.LoggerConfig;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.*;
+import javax.xml.bind.util.ValidationEventCollector;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -23,11 +23,40 @@ public class LogbackWithJaxbRunner {
     public static void main(String[] args) throws JAXBException, IOException {
         JAXBContext context = JAXBContext.newInstance(Configuration.class);
         Unmarshaller unmarshaller = context.createUnmarshaller();
-        String xmlFilePath = args[0];
+        Marshaller marshaller = context.createMarshaller();
+        ValidationEventCollector eventHandler = new ValidationEventCollector();
+        unmarshaller.setEventHandler(eventHandler);
+        int i = 0;
+        while (i < 1){
+            ValidationEvent[] parseErrors = tryUnmarshal(unmarshaller, args[0], marshaller);
+            System.out.println("\n************\n");
+            int count = 1;
+            for (ValidationEvent event : parseErrors) {
+                System.out.println(count + ". " + event.getMessage() + "@" + event.getLocator().toString());
+                //System.out.println(event.getLinkedException());
+                count++;
+            }
+            System.out.println("\n************\n");
+            eventHandler.reset();
+            i++;
+        }
+
+    }
+
+    private static ValidationEvent[] tryUnmarshal(Unmarshaller unmarshaller, String xmlFilePath, Marshaller marshaller) throws FileNotFoundException, JAXBException {
         FileInputStream in = new FileInputStream(xmlFilePath);
         Configuration config = (Configuration) unmarshaller.unmarshal(in);
-        Marshaller marshaller = context.createMarshaller();
+        writeXML(config, marshaller);
+        for (LoggerConfig logger :config.getLoggerConfigs()) {
+            System.out.println(logger.getName() + " : " + logger.getResetTime() + "," + logger.getTimerStartTime());
+        }
+        return ((ValidationEventCollector)unmarshaller.getEventHandler()).getEvents();
+    }
+
+    private static void writeXML (Configuration config, Marshaller marshaller) throws JAXBException {
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         marshaller.marshal(config, System.out);
     }
+
+
 }

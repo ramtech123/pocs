@@ -1,77 +1,72 @@
 package com.ramtech.logback.jaxb.pojo;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.util.ArrayList;
+import javax.xml.bind.annotation.*;
 import java.util.List;
 
 /**
  * Created by rmogasale on 4/3/2017.
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "configuration")
 public class Configuration {
 
+    @XmlAttribute
     private boolean scan;
 
+    @XmlAttribute
     private String scanPeriod;
 
+    @XmlElement(name = "appender")
     private List<Appender> appenders;
 
+    @XmlElement(name = "logger")
     private List<LoggerConfig> loggerConfigs;
 
+    @XmlElement(name = "root")
     private RootLogger rootLogger;
 
-    @XmlAttribute
     public boolean isScan() {
         return scan;
     }
 
-    public void setScan(boolean scan) {
+    public Configuration setScan(boolean scan) {
         this.scan = scan;
+        return this;
     }
 
-    @XmlAttribute
     public String getScanPeriod() {
         return scanPeriod;
     }
 
-    public void setScanPeriod(String scanPeriod) {
+    public Configuration setScanPeriod(String scanPeriod) {
         this.scanPeriod = scanPeriod;
+        return this;
     }
 
-    @XmlElement(name = "appender")
     public List<Appender> getAppenders() {
         return appenders;
     }
 
-    public void setAppenders(List<Appender> appenders) {
+    public Configuration setAppenders(List<Appender> appenders) {
         this.appenders = appenders;
+        return this;
     }
 
-    @XmlElement(name = "logger")
     public List<LoggerConfig> getLoggerConfigs() {
         return loggerConfigs;
     }
 
-    public void setLoggerConfigs(List<LoggerConfig> loggerConfigs) {
+    public Configuration setLoggerConfigs(List<LoggerConfig> loggerConfigs) {
         this.loggerConfigs = loggerConfigs;
+        return this;
     }
 
-    @XmlElement(name = "root")
     public RootLogger getRootLogger() {
         return rootLogger;
     }
 
-    public void setRootLogger(RootLogger rootLogger) {
+    public Configuration setRootLogger(RootLogger rootLogger) {
         this.rootLogger = rootLogger;
-    }
-
-    public static List<Appender> appenderListFactory() {
-        return new ArrayList<Appender>();
-    }
-
-    public static List<LoggerConfig> loggerListFactory() {
-        return new ArrayList<LoggerConfig>();
+        return this;
     }
 }

@@ -1,20 +1,20 @@
 package com.ramtech.logback.jaxb.pojo;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 
 /**
  * Created by rmogasale on 4/3/2017.
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "triggeringPolicy")
 public class TiggerPolicy {
 
+    @XmlAttribute(name = "class")
     private String tiggerPolicyClass;
 
+    @XmlElement(name = "MaxFileSize")
     private String maxFileSize;
 
-    @XmlAttribute(name = "class")
     public String getTiggerPolicyClass() {
         return tiggerPolicyClass;
     }
@@ -24,7 +24,6 @@ public class TiggerPolicy {
         return this;
     }
 
-    @XmlElement(name = "MaxFileSize")
     public String getMaxFileSize() {
         return maxFileSize;
     }

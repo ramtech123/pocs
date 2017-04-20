@@ -15,6 +15,9 @@
         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
             <maxIndex>50</maxIndex>
             <FileNamePattern>/temp/custom-logs/custom-log-app.log.%i</FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+                <MaxFileSize>25MB</MaxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
         <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
             <MaxFileSize>25MB</MaxFileSize>
@@ -36,13 +39,13 @@
         </triggeringPolicy>
     </appender>
 
-    <logger name="com.ramtech.logback.helper" level="debug" resetLevel="INFO" resetTime="2" additivity="false">
+    <logger name="com.airwatch.logback.helper" level="ddd" resetLevel="INFO" resetTime="" additivity="false">
         <appender-ref ref="VERIFY_LOG"/>
     </logger>
 
-    <logger name="com.ramtech.logback" level="debug" additivity="false">
+    <logger name="com.ramtech.logback" additivity="false">
         <appender-ref ref="APP_LOG"/>
-        <reset-level after="2"/>
+        <appender-ref ref="APP1_LOG"/>
     </logger>
 
     <root level="error">

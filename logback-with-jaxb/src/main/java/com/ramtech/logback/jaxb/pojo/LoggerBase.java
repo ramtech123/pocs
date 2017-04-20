@@ -5,6 +5,7 @@ import com.ramtech.logback.jaxb.adapter.LogLevelAdapter;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.List;
 
 /**
  * Created by rmogasale on 4/4/2017.
@@ -19,7 +20,7 @@ public class LoggerBase {
 
     private Long timerStartTime;
 
-    private AppenderRef appenderRef;
+    private List<AppenderRef> appenderRefList;
 
     @XmlJavaTypeAdapter(LogLevelAdapter.class)
     @XmlAttribute
@@ -60,12 +61,12 @@ public class LoggerBase {
     }
 
     @XmlElement(name = "appender-ref")
-    public AppenderRef getAppenderRef() {
-        return appenderRef;
+    public List<AppenderRef> getAppenderRefList() {
+        return appenderRefList;
     }
 
-    public void setAppenderRef(AppenderRef appenderRef) {
-        this.appenderRef = appenderRef;
+    public void setAppenderRefList(List<AppenderRef> appenderRefList) {
+        this.appenderRefList = appenderRefList;
     }
 
 }

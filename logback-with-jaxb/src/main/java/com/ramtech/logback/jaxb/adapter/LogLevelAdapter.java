@@ -11,7 +11,9 @@ public class LogLevelAdapter extends XmlAdapter<String, LogLevel> {
 
     @Override
     public LogLevel unmarshal(String text) throws Exception {
+        System.out.println("Unmarshal: [" + text + "]" );
         if(isEmpty(text)) {
+            System.out.println("I will throw exception now");
             throw new IllegalArgumentException("Null or blank data not allowed");
         }
         return LogLevel.valueOf(text.toUpperCase());
@@ -19,6 +21,7 @@ public class LogLevelAdapter extends XmlAdapter<String, LogLevel> {
 
     @Override
     public String marshal(LogLevel value) throws Exception {
+        //System.out.println("Marshal: [" + value + "]" );
         if (value == null) {
             return null;
         }

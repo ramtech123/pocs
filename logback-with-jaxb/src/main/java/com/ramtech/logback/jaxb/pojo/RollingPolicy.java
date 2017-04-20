@@ -1,22 +1,34 @@
 package com.ramtech.logback.jaxb.pojo;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 
 /**
  * Created by rmogasale on 4/3/2017.
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "rollingPolicy")
 public class RollingPolicy {
 
+    @XmlAttribute(name = "class")
     private String rollingPolicyClass;
 
     private Integer maxIndex;
 
+    @XmlElement(name = "FileNamePattern")
     private String fileNamePattern;
 
-    @XmlAttribute(name = "class")
+    @XmlElement(name = "timeBasedFileNamingAndTriggeringPolicy")
+    private TiggerPolicy triggeringPolicy;
+
+    public TiggerPolicy getTriggeringPolicy() {
+        return triggeringPolicy;
+    }
+
+    public RollingPolicy setTriggerPolicy(TiggerPolicy triggeringPolicy) {
+        this.triggeringPolicy = triggeringPolicy;
+        return this;
+    }
+
     public String getRollingPolicyClass() {
         return rollingPolicyClass;
     }
@@ -35,7 +47,6 @@ public class RollingPolicy {
         return this;
     }
 
-    @XmlElement(name = "FileNamePattern")
     public String getFileNamePattern() {
         return fileNamePattern;
     }

@@ -1,19 +1,26 @@
 package com.ramtech.logback.jaxb.pojo;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
  * Created by rmogasale on 4/3/2017.
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Appender {
 
+    @XmlAttribute
     private String name;
 
+    @XmlAttribute(name = "class")
     private String appenderClass;
 
+    @XmlElement
     private boolean append;
 
+    @XmlElement (name = "File")
     private String file;
 
     private Encoder encoder;
@@ -25,71 +32,75 @@ public class Appender {
     private AppenderRef appenderRef;
 
 
-    @XmlAttribute
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public Appender setName(String name) {
         this.name = name;
+        return this;
     }
 
-    @XmlAttribute(name = "class")
     public String getAppenderClass() {
         return appenderClass;
     }
 
-    public void setAppenderClass(String appenderClass) {
+    public Appender setAppenderClass(String appenderClass) {
         this.appenderClass = appenderClass;
+        return this;
     }
 
-    @XmlElement
     public boolean isAppend() {
         return append;
     }
 
-    public void setAppend(boolean append) {
+    public Appender setAppend(boolean append) {
         this.append = append;
+        return this;
     }
 
-    @XmlElement
     public String getFile() {
         return file;
     }
 
-    public void setFile(String file) {
+    public Appender setFile(String file) {
         this.file = file;
+        return this;
     }
 
     public Encoder getEncoder() {
         return encoder;
     }
 
-    public void setEncoder(Encoder encoder) {
+    public Appender setEncoder(Encoder encoder) {
         this.encoder = encoder;
+        return this;
     }
 
     public RollingPolicy getRollingPolicy() {
         return rollingPolicy;
     }
 
-    public void setRollingPolicy(RollingPolicy rollingPolicy) {
+    public Appender setRollingPolicy(RollingPolicy rollingPolicy) {
         this.rollingPolicy = rollingPolicy;
+        return this;
     }
 
     public TiggerPolicy getTriggeringPolicy() {
         return triggeringPolicy;
     }
 
-    public void setTriggeringPolicy(TiggerPolicy triggeringPolicy) {
+    public Appender setTriggeringPolicy(TiggerPolicy triggeringPolicy) {
         this.triggeringPolicy = triggeringPolicy;
+        return this;
     }
 
     public AppenderRef getAppenderRef() {
         return appenderRef;
     }
 
-    public void setAppenderRef(AppenderRef appenderRef) {
+    public Appender setAppenderRef(AppenderRef appenderRef) {
         this.appenderRef = appenderRef;
+        return this;
     }
 }
