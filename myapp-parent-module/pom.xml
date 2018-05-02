@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.ramtech</groupId>
+    <artifactId>myapp-parent-module</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>myapp-child-module</module>
+    </modules>
+    <packaging>pom</packaging>
+
+    <properties>
+        <!-- plugin versions -->
+        <maven.checkstyle.plugin.version>3.0.0</maven.checkstyle.plugin.version>
+        <maven.pmd.plugin.version>3.6</maven.pmd.plugin.version>
+
+        <!-- project root directory -->
+        <projectRootDir>${basedir}</projectRootDir>
+    </properties>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>${maven.checkstyle.plugin.version}</version>
+                    <configuration>
+                        <!-- Below config with ${projectRootDir} works fine -->
+                        <configLocation>${projectRootDir}/analyzers/checkstyle.xml</configLocation>
+                        <!-- Below configurations with ${basedir} does not work -->
+                        <!--<configLocation>${basedir}/analyzers/checkstyle.xml</configLocation>-->
+                        <!--<configLocation>${basedir}/../analyzers/checkstyle.xml</configLocation>-->
+                        <encoding>UTF-8</encoding>
+                        <failOnViolation>false</failOnViolation>
+                        <failsOnError>false</failsOnError>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>checkstyle-check</id>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-pmd-plugin</artifactId>
+                    <version>${maven.pmd.plugin.version}</version>
+                    <configuration>
+                        <rulesets>
+                            <!-- This config with ${basedir} always works fine -->
+                            <ruleset>${basedir}/../analyzers/pmdrules.xml</ruleset>
+                        </rulesets>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>check</goal>
+                                <goal>cpd-check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
