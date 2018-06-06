@@ -23,7 +23,7 @@ public class Server {
     }
     
     private static void handleRequest(final RoutingContext context) {
-        LOGGER.info("Responding to request via path {}", context.request().path());
+        LOGGER.info("Responding to request via path {}, body size = {}", context.request().path(), context.getBody().length());
         context.response()
                 .setChunked(true)
                 .setStatusCode(200)

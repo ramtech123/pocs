@@ -20,7 +20,8 @@ public class ClientUtil {
                 .setMaxPoolSize(CONN_POOL_SIZE)
                 .setConnectTimeout(CONNECT_TIMEOUT_MILLIS)
                 .setIdleTimeout(IDLE_TIMEOUT_SECONDS)
-                .setKeepAlive(true);
+                .setKeepAlive(true)
+                .setMaxChunkSize(15);
     }
     
 }

@@ -13,7 +13,7 @@ Was facing some issue with second approach - in the proxy layer, client request 
 Use following maven build command ```mvn clean install```
     
 **How to run:**
-Starting point for this module is `AppStarter`. By defaultWhen running application, an optional flag `-DproxyAsBuffer=true` can be passed to force the proxy to buffer the request body and then send it to the server. By default, proxy tries to send the request as stream.
+Starting point for this module is `AppStarter`. When running application, an optional flag `-DproxyAsBuffer=true` can be passed to force the proxy to buffer the request body and then send it to the server. By default, proxy tries to send the request as stream.
 
 After successfully building the module with maven command, use below commands to run the application:
 

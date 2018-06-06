@@ -30,7 +30,8 @@ public class ServerUtil {
         return new HttpServerOptions()
                 .setIdleTimeout(IDLE_TIMEOUT_SECONDS)
                 .setHost("localhost")
-                .setPort(serverPort);
+                .setPort(serverPort)
+                .setMaxChunkSize(10);
     }
 
     private static Router getRouter(final Vertx vertx, final boolean handleBody, final Consumer<RoutingContext> consumer,

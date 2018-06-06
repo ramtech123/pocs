@@ -6,6 +6,7 @@ import ch.qos.logback.core.joran.spi.JoranException;
 import com.ramtech.vertx.poc.http.Proxy;
 import com.ramtech.vertx.poc.http.Server;
 import io.vertx.rxjava.core.Vertx;
+import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +26,11 @@ public class AppStarter {
                         ex -> LOGGER.error("Unable to launch server or proxy", ex),
                         () -> {
                             LOGGER.info("Both server and proxy started successfully..!");
-                            client(vertx).triggerRequest();
+                            try {
+                                client(vertx).triggerRequest();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         });
     }
 
