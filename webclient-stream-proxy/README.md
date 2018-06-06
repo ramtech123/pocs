@@ -1,0 +1,21 @@
+POC - WebClient Proxy
+=====================
+
+Testing a http proxy which uses `io.vertx.rxjava.ext.web.client.WebClient` for creating server connections. There is a client, proxy and a server. When the application is run, client invokes single request to proxy, which in turn forwards it to the server. The requests received by proxy server can be buffered (`rxSendBuffer` - read body from client request and write into the server request) or streamed (`rxSendStream` - pass client request object itself to the server request).
+
+Was facing some issue with second approach - in the proxy layer, client request used to fail the stream indicating request body already read. Trying to reproduce the same.
+
+**System Requirements:**
+- Java 1.8
+- Maven 3.x
+
+**How to build:**
+Use following maven build command ```mvn clean install```
+    
+**How to run:**
+Starting point for this module is `AppStarter`. By defaultWhen running application, an optional flag `-DproxyAsBuffer=true` can be passed to force the proxy to buffer the request body and then send it to the server. By default, proxy tries to send the request as stream.
+
+After successfully building the module with maven command, use below commands to run the application:
+
+- Run to stream the request: ```java -jar webclient-stream-proxy-1.0-jar-with-dependencies.jar```
+- Run to buffer the request: ```java -jar -DproxyAsBuffer=true webclient-stream-proxy-1.0-jar-with-dependencies.jar```
