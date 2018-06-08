@@ -9,10 +9,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static com.ramtech.vertx.poc.constant.Constants.MAX_REQUEST_COUNT;
 import static com.ramtech.vertx.poc.constant.Constants.PROXY_PORT;
 import static com.ramtech.vertx.poc.constant.Constants.REQUEST_MAX_RETRY;
 import static com.ramtech.vertx.poc.constant.Constants.REQUEST_TIMEOUT_MILLIS;
@@ -23,31 +27,57 @@ public class Client {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Client.class);
 
-    private WebClient webClient;
+    private List<WebClient> webClients = new ArrayList<>();
+    AtomicInteger successCount = new AtomicInteger(0);
+    AtomicInteger failureCount = new AtomicInteger(0);
+    AtomicInteger requestCount = new AtomicInteger(0);
+    AtomicInteger responseCount = new AtomicInteger(0);
 
     private Client(final Vertx vertx) {
-        webClient = WebClient.create(vertx, getWebClientOptions(PROXY_PORT));
+        for (int i = 0; i < MAX_REQUEST_COUNT; i++) {
+            webClients.add(WebClient.create(vertx, getWebClientOptions(PROXY_PORT)));
+        }
     }
 
     public static Client client(final Vertx vertx) {
         return new Client(vertx);
     }
 
-    public void triggerRequest() throws IOException {
+    public void triggerRequest() {
+        try (InputStream in = getClass().getResourceAsStream("/client-request/request.txt");
+             BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
+            String body = reader.lines().collect(Collectors.joining(lineSeparator()));
+            webClients.forEach(webClient -> {
+                invokeRequest(webClient, body);
+            });
+        } catch (IOException ex) {
+            LOGGER.error("Error while reading request file: {}", ex.getMessage(), ex);
+        }
+    }
+
+    private void invokeRequest(final WebClient webClient, final String body) {
         HttpRequest<Buffer> request = webClient.request(HttpMethod.POST, "/test")
                 .timeout(REQUEST_TIMEOUT_MILLIS);
-        LOGGER.info("Invoking client request..");
-        try (InputStream in = getClass().getResourceAsStream("/client-request/request.txt");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
-            String body = reader.lines().collect(Collectors.joining(lineSeparator()));
-            request.rxSendBuffer(Buffer.buffer(body))
-                    .retry((count, ex) -> count < REQUEST_MAX_RETRY)
-                    .toObservable()
-                    .subscribe(response -> {
-                        LOGGER.info("Received response with status: {}", response.statusCode());
-                        LOGGER.info("Body size = {}", response.body().length());
-                        // LOGGER.info("Response Body: {}", response.bodyAsString());
-                    }, ex -> LOGGER.error("Received error response: {}", ex.getMessage(), ex));
-        }
+        requestCount.incrementAndGet();
+        request.rxSendBuffer(Buffer.buffer(body))
+                .retry((count, ex) -> count < REQUEST_MAX_RETRY)
+                .toObservable()
+                .subscribe(response -> {
+                            if (response.statusCode() < 400) {
+                                successCount.incrementAndGet();
+                            } else {
+                                failureCount.incrementAndGet();
+                            }
+                            LOGGER.info("Body size = {}, Status: {}, SuccessCount = {}, FailureCount = {}", response.body().length(),
+                                    response.statusCode(), successCount.get(), failureCount.get());
+                        },
+                        ex -> {
+                            LOGGER.error("Error response: {}, SuccessCount = {}, FailureCount = {}", ex.getMessage(),
+                                    successCount.get(), failureCount.incrementAndGet(), ex);
+                        },
+                        () -> {
+                            responseCount.incrementAndGet();
+                            LOGGER.info("RequestCount = {}, ResponseCount = {}", requestCount.get(), responseCount.get());
+                        });
     }
 }

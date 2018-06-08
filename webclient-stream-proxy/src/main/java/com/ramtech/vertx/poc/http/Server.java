@@ -12,16 +12,16 @@ import static com.ramtech.vertx.poc.util.ServerUtil.createHttpServer;
 import static com.ramtech.vertx.poc.util.ServerUtil.getServerOptions;
 
 /**
- * Server - listens for HTTP GET requests on port 8096 and returns a success response. 
+ * Server - listens for HTTP POST requests on port 8096 and returns a success response.
  */
 public class Server {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Server.class);
-    
+
     public static Single<HttpServer> httpServer(final Vertx vertx) {
-        return createHttpServer(vertx, getServerOptions(SERVER_PORT) ,"'Server'", true, Server::handleRequest);
+        return createHttpServer(vertx, getServerOptions(SERVER_PORT), "'Server'", true, Server::handleRequest);
     }
-    
+
     private static void handleRequest(final RoutingContext context) {
         LOGGER.info("Responding to request via path {}, body size = {}", context.request().path(), context.getBody().length());
         context.response()

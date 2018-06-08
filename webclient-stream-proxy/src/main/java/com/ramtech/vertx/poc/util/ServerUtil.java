@@ -37,7 +37,7 @@ public class ServerUtil {
     private static Router getRouter(final Vertx vertx, final boolean handleBody, final Consumer<RoutingContext> consumer,
                                     final String serverType) {
         Router router = Router.router(vertx);
-        LOGGER.info("{}: Handle body = {}", serverType, handleBody);
+            LOGGER.info("{}: Handle body = {}", serverType, handleBody);
         if (handleBody) {
             router.post().handler(BodyHandler.create());
         }

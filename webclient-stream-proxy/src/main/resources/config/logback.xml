@@ -7,7 +7,7 @@
     </appender>
 
     <logger name="com.ramtech" level="info"/>
-
+    <logger name="io.vertx.core.impl.BlockedThreadChecker" level="ERROR"/>
     <root level="error">
         <appender-ref ref="async_appender"/>
     </root>

@@ -6,31 +6,33 @@ import ch.qos.logback.core.joran.spi.JoranException;
 import com.ramtech.vertx.poc.http.Proxy;
 import com.ramtech.vertx.poc.http.Server;
 import io.vertx.rxjava.core.Vertx;
-import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static com.ramtech.vertx.poc.http.Client.client;
 
+/**
+ * Starting point for this application.
+ */
 public class AppStarter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AppStarter.class);
+    private static final Vertx vertx = Vertx.vertx();
 
     public static void main(String[] args) throws JoranException {
+//        System.setProperty(PROXY_AS_BUFFER, "true");
+//        System.setProperty(NO_ASYNC_PROXY, "true");
         configureLogger();
-        Vertx vertx = Vertx.vertx();
+        
+        // Launch HTTP Server and proxy. Once both are ready, trigger client requests.
         Server.httpServer(vertx)
                 .mergeWith(Proxy.httpProxy(vertx))
                 .subscribe(server -> {
                         },
                         ex -> LOGGER.error("Unable to launch server or proxy", ex),
                         () -> {
-                            LOGGER.info("Both server and proxy started successfully..!");
-                            try {
-                                client(vertx).triggerRequest();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                            LOGGER.info("Both server and proxy started successfully..! Starting the client..");
+                            client(vertx).triggerRequest();
                         });
     }
 
