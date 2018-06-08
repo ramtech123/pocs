@@ -76,14 +76,12 @@ public class Proxy {
             LOGGER.info("Proxying request as buffer..");
             request.rxSendBuffer(context.getBody())
                     .retry((count, ex) -> count < REQUEST_MAX_RETRY)
-                    .toObservable()
                     .subscribe(response -> handleResponse(context, response),
                             ex -> handleError(context, ex));
         } else {
             LOGGER.info("Proxying request as stream..");
             request.rxSendStream(context.request())
                     .retry((count, ex) -> count < REQUEST_MAX_RETRY)
-                    .toObservable()
                     .subscribe(response -> handleResponse(context, response),
                             ex -> handleError(context, ex));
         }
