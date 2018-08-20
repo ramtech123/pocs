@@ -1,4 +1,4 @@
-This is reproducer for Netty issue 
+This is reproducer for Netty issue https://github.com/netty/netty/issues/8208
 
 How to run:
 -----------
