@@ -1,2 +1,2 @@
 # pocs
-This is a repository to hold self-training projects
+This is a repository to hold self-training projects.
