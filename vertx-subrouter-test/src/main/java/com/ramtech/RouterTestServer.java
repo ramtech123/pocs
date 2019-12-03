@@ -32,7 +32,7 @@ public class RouterTestServer {
     private ContextRunner contextRunner;
     @Value("${server.port:8443}")
     private int serverPort;
-    @Value("${use.sub.routers:false}")
+    @Value("${use.sub.routers:true}")
     private boolean useSubRouters;
 
     @PostConstruct
