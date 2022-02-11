@@ -10,7 +10,7 @@
 
     <properties>
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
-        <vertx.version>3.8.4</vertx.version>
+        <vertx.version>3.9.4</vertx.version>
         <vertx.beans.version>1.5.0</vertx.beans.version>
         <spring.boot.version>2.1.7.RELEASE</spring.boot.version>
         <spring.version>5.1.9.RELEASE</spring.version>
